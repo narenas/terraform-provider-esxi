@@ -19,7 +19,7 @@ import (
 func guestCREATE(c *Config, guest_name string, disk_store string,
 	src_path string, resource_pool_name string, strmemsize string, strnumvcpus string, strvirthwver string, guestos string,
 	boot_disk_type string, boot_disk_size string, virtual_networks [10][3]string, boot_firmware string,
-	virtual_disks [60][2]string, guest_shutdown_timeout int, ovf_properties_timer int, notes string,
+	virtual_disks [60][2]string, guest_shutdown_timeout int, ovf_properties_timer int, notes string, nested_esxi string, 
 	guestinfo map[string]interface{}, ovf_properties map[string]string) (string, error) {
 
 	esxiConnInfo := getConnectionInfo(c)
@@ -164,6 +164,10 @@ func guestCREATE(c *Config, guest_name string, disk_store string,
 				fmt.Sprintf("ide1:0.deviceType = \\\"cdrom-raw\\\"\n")
 		}
 
+		if nested_esxi == "y" {
+			vmx_contents = vmx_contents + 
+				fmt.Sprintf("monitor.allowLegacyCPU" : \\\"TRUE"\\\")
+		}
 		//
 		//  Write vmx file to esxi host
 		//
