@@ -166,7 +166,7 @@ func guestCREATE(c *Config, guest_name string, disk_store string,
 
 		if nested_esxi == "y" {
 			vmx_contents = vmx_contents + 
-				fmt.Sprintf("monitor.allowLegacyCPU" : \\\"TRUE"\\\")
+				fmt.Sprintf("monitor.allowLegacyCPU = \\\"TRUE\\\"\n") 
 		}
 		//
 		//  Write vmx file to esxi host
