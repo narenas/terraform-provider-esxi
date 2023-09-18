@@ -255,6 +255,7 @@ func guestCREATE(c *Config, guest_name string, disk_store string,
 			}
 			log.Println("[guestCREATE] ovf_properties extra_params: " + extra_params)
 		}
+		allow_nested_esxi := "" 
 		if nested_esxi == "y" {
 			allow_nested_esxi = "--extraConfig:monitor.allowLegacyCPU=TRUE "
 		} 
