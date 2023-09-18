@@ -255,11 +255,11 @@ func guestCREATE(c *Config, guest_name string, disk_store string,
 			}
 			log.Println("[guestCREATE] ovf_properties extra_params: " + extra_params)
 		}
-		if ( (nested_esxi == "y") && (is_ovf_properties == false) ) {
-			extra_params = "--allowExtraConfig "
+		if nested_esxi == "y" {
+			allow_nested_esxi = "--extraConfig:monitor.allowLegacyCPU=TRUE "
 		} 
-		ovf_cmd := fmt.Sprintf("ovftool --acceptAllEulas --noSSLVerify --X:useMacNaming=false %s "+
-			"-dm=%s --name='%s' --overwrite -ds='%s' %s '%s' '%s'", extra_params, boot_disk_type, guest_name, disk_store, net_param, src_path, dst_path)
+		ovf_cmd := fmt.Sprintf("ovftool --acceptAllEulas --noSSLVerify --X:useMacNaming=false %s %s "+
+			"-dm=%s --name='%s' --overwrite -ds='%s' %s '%s' '%s'", extra_params, allow_nested_esxi,boot_disk_type, guest_name, disk_store, net_param, src_path, dst_path)
 
 		if runtime.GOOS == "windows" {
 			osShellCmd = "cmd.exe"
